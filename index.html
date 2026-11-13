@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClubCredits - Private Group Credit System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="disclaimer-bar" role="note" aria-label="Legal and safety disclaimer">
+    <div class="container disclaimer-content">
+      <span class="badge-disclaimer">Important Notice</span>
+      <span class="disclaimer-text"><strong>Fictional credits only · No cash value.</strong> This is not a bank. Credits cannot be deposited, withdrawn, redeemed, or exchanged for money.</span>
+    </div>
+  </aside>
+
+  <!-- Global Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+      <div class="brand">
+        <a href="#welcome" class="brand-link" aria-label="ClubCredits Home">
+          <div class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">ClubCredits</span>
+            <span class="brand-tagline">School Club Token Ledger</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="navigation" aria-label="Main Navigation">
+        <button class="nav-btn active" data-tab="member-section" id="nav-member-tab">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Member Transfer
+        </button>
+        <button class="nav-btn" data-tab="activity-section" id="nav-activity-tab">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          Live Activity
+          <span class="activity-counter" id="activity-counter" aria-label="Activity count">0</span>
+        </button>
+        <button class="nav-btn" data-tab="admin-section" id="nav-admin-tab">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Admin Portal
+        </button>
+      </nav>
+
+      <!-- Live Connection & User Status -->
+      <div class="header-status">
+        <a href="/download" class="btn-header-link" id="btn-download-zip" download="clubcredits-logic-bank.zip" title="Download complete project ZIP">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download ZIP</span>
+        </a>
+        <a href="https://github.com/chaithu44-tech/Logic-bank" target="_blank" rel="noopener noreferrer" class="btn-header-link btn-header-gh" title="View repository on GitHub">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <div class="live-indicator" id="live-indicator" title="Server-Sent Events Realtime Connection" role="status" aria-live="polite">
+          <span class="pulse-dot"></span>
+          <span class="indicator-label" id="live-status-text">Live Sync</span>
+        </div>
+        <div class="session-pill" id="session-pill" style="display: none;">
+          <span class="session-user" id="session-user-name">Alex Rivera</span>
+          <button class="btn-signout" id="btn-signout" title="Sign out" aria-label="Sign out">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content container">
+
+    <!-- Welcome Hero Area -->
+    <section class="welcome-card" id="welcome" aria-labelledby="welcome-heading">
+      <div class="welcome-grid">
+        <div class="welcome-text-col">
+          <div class="welcome-chip">
+            <span class="chip-star">★</span> Private Club Ledger
+          </div>
+          <h1 id="welcome-heading" class="welcome-title">Group credits, with clear rules.</h1>
+          <p class="welcome-subtitle">
+            A friendly, peer-to-peer event token ledger for our school club. Members can award fictional credits to celebrate collaboration, share supplies, or reward workshop milestones. Every transfer is evaluated against transparent group rules on the server.
+          </p>
+          <div class="rules-summary-badges">
+            <div class="rule-badge-item" title="Transfer requires authentication and sufficient balance">
+              <span class="rule-symbol">Safety:</span>
+              <code class="rule-formula">T → (A ∧ B)</code>
+            </div>
+            <div class="rule-badge-item" title="Transfer approval policy">
+              <span class="rule-symbol">Policy:</span>
+              <code class="rule-formula">T ↔ (A ∧ B ∧ L ∧ D)</code>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-image-col">
+          <div class="hero-image-wrapper">
+            <img src="hero.jpg" alt="Illustration of school club members collaborating and sharing event tokens in a modern clubhouse lounge" class="hero-image" width="640" height="360" loading="eager">
+            <div class="hero-caption">
+              <span>Clubhouse Lounge</span> · Peer Recognition &amp; Event Tokens
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: MEMBER AREA -->
+    <section class="tab-content active" id="member-section" aria-labelledby="member-section-heading">
+      <h2 id="member-section-heading" class="sr-only">Member Transfer Area</h2>
+
+      <!-- Member Sign-In Card (Shown when not authenticated as member) -->
+      <div class="card auth-card" id="member-login-panel">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Member Sign-In</h3>
+            <p class="card-desc">Sign in with your Club Member ID and passcode to view balances and send credits.</p>
+          </div>
+          <span class="badge-role">Local Demo</span>
+        </div>
+
+        <div class="demo-accounts-box">
+          <div class="demo-accounts-header">
+            <p class="demo-accounts-label">Sample demo credentials (120 accounts available):</p>
+            <div class="demo-actions-row">
+              <button type="button" class="btn btn-sm btn-outline btn-browse-all" id="btn-open-directory">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-sm">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Browse All 120+ Demo Members
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary btn-random-demo" id="btn-random-demo">
+                🎲 Sign In as Random Member
+              </button>
+            </div>
+          </div>
+
+          <div class="demo-buttons-grid">
+            <button type="button" class="btn-demo-account" data-id="MEMBER-01" data-pass="1234">
+              <span class="demo-name">Alex Rivera</span>
+              <span class="demo-creds"><code>MEMBER-01</code> / <code>1234</code></span>
+              <span class="demo-meta">Robotics Lead · 150 cr</span>
+            </button>
+            <button type="button" class="btn-demo-account" data-id="MEMBER-02" data-pass="2468">
+              <span class="demo-name">Jordan Chen</span>
+              <span class="demo-creds"><code>MEMBER-02</code> / <code>2468</code></span>
+              <span class="demo-meta">Event Coordinator · 80 cr</span>
+            </button>
+            <button type="button" class="btn-demo-account" data-id="MEMBER-03" data-pass="1357">
+              <span class="demo-name">Taylor Kim</span>
+              <span class="demo-creds"><code>MEMBER-03</code> / <code>1357</code></span>
+              <span class="demo-meta">Design Lead · 95 cr</span>
+            </button>
+            <button type="button" class="btn-demo-account" data-id="MEMBER-04" data-pass="9876">
+              <span class="demo-name">Morgan Smith</span>
+              <span class="demo-creds"><code>MEMBER-04</code> / <code>9876</code></span>
+              <span class="demo-meta">Science Olympiad · 60 cr</span>
+            </button>
+          </div>
+        </div>
+
+        <form id="form-member-login" class="form-grid">
+          <div class="form-group">
+            <label for="input-member-id">Member ID</label>
+            <input type="text" id="input-member-id" placeholder="e.g. MEMBER-01" required autocomplete="username" spellcheck="false">
+          </div>
+          <div class="form-group">
+            <label for="input-member-pass">Passcode</label>
+            <input type="password" id="input-member-pass" placeholder="••••" required autocomplete="current-password">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btn-submit-member-login">
+              <span>Sign In as Member</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div class="form-feedback error-msg" id="member-login-error" role="alert" style="display: none;"></div>
+        </form>
+      </div>
+
+      <!-- Member Signed-In Dashboard (Shown when authenticated as member) -->
+      <div id="member-dashboard" style="display: none;">
+        <!-- Member Profile & Balance Overview -->
+        <div class="member-hero-grid">
+          <div class="card member-profile-card">
+            <div class="profile-header">
+              <div class="avatar-circle" id="member-avatar">AR</div>
+              <div class="profile-meta">
+                <h3 class="profile-name" id="member-display-name">Alex Rivera</h3>
+                <span class="profile-sub" id="member-display-id-role">MEMBER-01 · Robotics Club Lead</span>
+              </div>
+              <button class="btn-switch-account" id="btn-switch-member" title="Switch to another demo account">Switch Account</button>
+            </div>
+
+            <div class="balance-metrics-row">
+              <div class="balance-stat-box primary">
+                <div class="stat-label">Available Balance</div>
+                <div class="stat-value">
+                  <span id="member-balance-val">150</span>
+                  <span class="stat-unit">credits</span>
+                </div>
+                <div class="stat-sub">Strictly non-refundable fictional tokens</div>
+              </div>
+
+              <div class="balance-stat-box secondary">
+                <div class="stat-label">Daily Credits Used</div>
+                <div class="stat-value">
+                  <span id="member-daily-spent-val">0</span>
+                  <span class="stat-limit">/ <span id="member-daily-limit-val">100</span> max</span>
+                </div>
+                <div class="daily-progress-bar-bg" aria-hidden="true">
+                  <div class="daily-progress-bar-fill" id="daily-progress-fill" style="width: 0%;"></div>
+                </div>
+                <div class="stat-sub"><span id="member-daily-remaining-val">100</span> credits remaining today</div>
+              </div>
+            </div>
+
+            <!-- Active Group Rules Cardlet -->
+            <div class="rules-summary-box">
+              <div class="rules-summary-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rule-icon">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                Active Group Transfer Limits
+              </div>
+              <div class="rules-summary-items">
+                <div class="rule-chip">
+                  <span class="rule-chip-key">Single Transfer Max (L):</span>
+                  <strong id="summary-max-transfer">50 credits</strong>
+                </div>
+                <div class="rule-chip">
+                  <span class="rule-chip-key">Daily Member Limit (D):</span>
+                  <strong id="summary-daily-limit">100 credits</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transfer Form & Reasoning Explanation Container -->
+          <div class="card transfer-card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Send Club Credits</h3>
+                <p class="card-desc">Transfer credits to another member with instant logic evaluation.</p>
+              </div>
+              <span class="badge-role badge-transfer">Instant Live</span>
+            </div>
+
+            <form id="form-transfer" class="transfer-form">
+              <div class="form-group">
+                <label for="select-recipient">Select Recipient</label>
+                <select id="select-recipient" required aria-label="Select recipient member">
+                  <option value="" disabled selected>Choose a club member...</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="input-amount">Amount (credits)</label>
+                <div class="amount-input-wrap">
+                  <input type="number" id="input-amount" min="1" step="1" placeholder="e.g. 15" required>
+                  <span class="amount-suffix">credits</span>
+                </div>
+                <!-- Quick Amount Chips -->
+                <div class="amount-chips-row">
+                  <span class="chip-label">Quick select:</span>
+                  <button type="button" class="btn-amount-chip" data-amt="5">+5</button>
+                  <button type="button" class="btn-amount-chip" data-amt="10">+10</button>
+                  <button type="button" class="btn-amount-chip" data-amt="25">+25</button>
+                  <button type="button" class="btn-amount-chip" data-amt="50">+50</button>
+                  <button type="button" class="btn-amount-chip chip-max" id="btn-amt-max">Max Safe</button>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-transfer" id="btn-submit-transfer">
+                  <span id="transfer-btn-text">Submit Transfer</span>
+                  <div class="spinner" id="transfer-spinner" style="display: none;" aria-hidden="true"></div>
+                </button>
+              </div>
+            </form>
+
+            <!-- Compact Transfer Decision & Visible Reasoning Card -->
+            <div class="decision-box-wrapper" id="decision-box-wrapper" style="display: none;" role="region" aria-live="polite" aria-atomic="true">
+              <div class="decision-box-header">
+                <span class="decision-title">Transfer Evaluation Result</span>
+                <span class="decision-badge" id="decision-status-badge">Approved</span>
+              </div>
+
+              <!-- Propositions Check Matrix -->
+              <div class="propositions-grid" id="propositions-grid">
+                <div class="prop-item" id="prop-a">
+                  <div class="prop-left">
+                    <span class="prop-code">A</span>
+                    <span class="prop-label">Signed in (Authenticated)</span>
+                  </div>
+                  <span class="prop-mark" id="prop-a-mark">✓</span>
+                </div>
+                <div class="prop-item" id="prop-b">
+                  <div class="prop-left">
+                    <span class="prop-code">B</span>
+                    <span class="prop-label">Enough credits (Balance Check)</span>
+                  </div>
+                  <span class="prop-mark" id="prop-b-mark">✓</span>
+                </div>
+                <div class="prop-item" id="prop-l">
+                  <div class="prop-left">
+                    <span class="prop-code">L</span>
+                    <span class="prop-label">Within transfer limit (&le; Max)</span>
+                  </div>
+                  <span class="prop-mark" id="prop-l-mark">✓</span>
+                </div>
+                <div class="prop-item" id="prop-d">
+                  <div class="prop-left">
+                    <span class="prop-code">D</span>
+                    <span class="prop-label">Within daily limit (&le; Daily)</span>
+                  </div>
+                  <span class="prop-mark" id="prop-d-mark">✓</span>
+                </div>
+              </div>
+
+              <!-- Decision Explanation & Reason -->
+              <div class="decision-summary" id="decision-summary">
+                <div class="decision-line">
+                  <strong>Decision:</strong>
+                  <span id="decision-final-text">Approved</span>
+                </div>
+                <div class="decision-reason-line" id="decision-reason-container">
+                  <strong>Reason:</strong>
+                  <span id="decision-reason-text">All policy checks passed. Credits transferred immediately.</span>
+                </div>
+                <div class="decision-meta-line" id="decision-meta-text">
+                  Transaction: TXN-0000 · 2026-11-13 18:30 UTC
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Member Personal Activity Feed -->
+        <div class="card my-activity-card">
+          <div class="card-header">
+            <h3 class="card-title">My Recent Activity</h3>
+            <span class="badge-role">Personal Ledger</span>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="my-transfers-table">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Type</th>
+                  <th>Peer</th>
+                  <th>Amount</th>
+                  <th>Checks (A,B,L,D)</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody id="my-transfers-tbody">
+                <tr>
+                  <td colspan="6" class="text-center text-muted">No recent personal transfers yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SECTION 2: LIVE ACTIVITY FEED -->
+    <section class="tab-content" id="activity-section" aria-labelledby="activity-section-heading">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 id="activity-section-heading" class="card-title">Group Credit Activity Feed</h2>
+            <p class="card-desc">Live log of all peer transfers across the club, showing transparent approval &amp; decline logic.</p>
+          </div>
+          <div class="activity-filter-group" role="group" aria-label="Filter activity">
+            <button class="filter-btn active" data-filter="all">All (<span id="count-all">0</span>)</button>
+            <button class="filter-btn" data-filter="approved">Approved (<span id="count-approved">0</span>)</button>
+            <button class="filter-btn" data-filter="declined">Declined (<span id="count-declined">0</span>)</button>
+          </div>
+        </div>
+
+        <div class="activity-feed-list" id="activity-feed-list" role="feed" aria-busy="false">
+          <!-- Feed items dynamically inserted here -->
+          <div class="empty-state" id="activity-empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="empty-icon">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <p>Waiting for live group transfers...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 3: ADMINISTRATOR PORTAL -->
+    <section class="tab-content" id="admin-section" aria-labelledby="admin-section-heading">
+      <h2 id="admin-section-heading" class="sr-only">Administrator Portal</h2>
+
+      <!-- Admin Sign-In Card (Shown when not authenticated as admin) -->
+      <div class="card auth-card" id="admin-login-panel">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Administrator Sign-In</h3>
+            <p class="card-desc">Protected controls for the club treasurer and organizers.</p>
+          </div>
+          <span class="badge-role badge-admin">Treasurer</span>
+        </div>
+
+        <div class="demo-accounts-box admin-demo-box">
+          <p class="demo-accounts-label">Sample local administrator credentials:</p>
+          <div class="admin-quick-fill">
+            <div class="admin-cred-item">
+              <span>Admin Passcode:</span>
+              <code>adminpass</code>
+            </div>
+            <button class="btn btn-sm btn-secondary" id="btn-autofill-admin">Autofill &amp; Sign In</button>
+          </div>
+        </div>
+
+        <form id="form-admin-login" class="form-grid">
+          <div class="form-group">
+            <label for="input-admin-pass">Administrator Passcode</label>
+            <input type="password" id="input-admin-pass" placeholder="Enter admin passcode" required autocomplete="current-password">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btn-submit-admin-login">
+              <span>Unlock Admin Controls</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="form-feedback error-msg" id="admin-login-error" role="alert" style="display: none;"></div>
+        </form>
+      </div>
+
+      <!-- Admin Dashboard (Shown when authenticated as admin) -->
+      <div id="admin-dashboard" style="display: none;">
+
+        <!-- Admin KPI Stats -->
+        <div class="admin-metrics-grid">
+          <div class="stat-card">
+            <div class="stat-card-title">Active Members</div>
+            <div class="stat-card-val" id="metric-total-members">4</div>
+            <div class="stat-card-sub">Enrolled club participants</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Credits in Circulation</div>
+            <div class="stat-card-val" id="metric-total-credits">385</div>
+            <div class="stat-card-sub">Total group ledger supply</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Approved Transfers</div>
+            <div class="stat-card-val text-success" id="metric-approved-txns">1</div>
+            <div class="stat-card-sub">Satisfied all A, B, L, D checks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Declined Transfers</div>
+            <div class="stat-card-val text-danger" id="metric-declined-txns">1</div>
+            <div class="stat-card-sub">Prevented overdraft or limit breach</div>
+          </div>
+        </div>
+
+        <!-- Limits Configuration & Policy Invariants -->
+        <div class="admin-panels-grid">
+          <div class="card admin-policy-card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Transfer Limits &amp; Invariants</h3>
+                <p class="card-desc">Configure group limits. Core safety rules are non-configurable invariants.</p>
+              </div>
+              <span class="badge-role badge-admin">Rules Engine</span>
+            </div>
+
+            <div class="invariant-notice-box">
+              <div class="invariant-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shield-icon">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                Safety Invariant: <code>T → (A ∧ B)</code>
+              </div>
+              <p class="invariant-desc">
+                The group system strictly forbids overdrafts and unauthenticated transfers. The administrator can adjust limits <strong>L</strong> and <strong>D</strong>, but cannot disable <strong>A</strong> (authenticated sender) or <strong>B</strong> (sufficient balance).
+              </p>
+            </div>
+
+            <form id="form-admin-limits" class="admin-limits-form">
+              <div class="form-group">
+                <label for="input-admin-max-transfer">
+                  <strong>Proposition L:</strong> Maximum Credits Allowed in One Transfer
+                </label>
+                <div class="amount-input-wrap">
+                  <input type="number" id="input-admin-max-transfer" min="1" max="1000" required>
+                  <span class="amount-suffix">credits / transfer</span>
+                </div>
+                <span class="input-hint">Prevents any single transfer from draining excessive credits at once.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="input-admin-daily-limit">
+                  <strong>Proposition D:</strong> Daily Transfer Limit per Member
+                </label>
+                <div class="amount-input-wrap">
+                  <input type="number" id="input-admin-daily-limit" min="1" max="5000" required>
+                  <span class="amount-suffix">credits / day</span>
+                </div>
+                <span class="input-hint">Resets each calendar day automatically based on ledger records.</span>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="btn-save-limits">
+                  <span>Save Transfer Limits</span>
+                </button>
+              </div>
+              <div class="form-feedback success-msg" id="admin-limits-success" style="display: none;"></div>
+            </form>
+          </div>
+
+          <!-- Add Member Card -->
+          <div class="card admin-add-member-card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Enroll New Member</h3>
+                <p class="card-desc">Add a student or participant to the club credit ledger.</p>
+              </div>
+              <span class="badge-role">+ Member</span>
+            </div>
+
+            <form id="form-admin-add-member" class="admin-add-form">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="input-new-member-id">Member ID</label>
+                  <input type="text" id="input-new-member-id" placeholder="e.g. MEMBER-05" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-new-member-name">Display Name</label>
+                  <input type="text" id="input-new-member-name" placeholder="e.g. Casey Jordan" required>
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="input-new-member-role">Club Role</label>
+                  <input type="text" id="input-new-member-role" placeholder="e.g. Workshop Volunteer">
+                </div>
+                <div class="form-group">
+                  <label for="input-new-member-pass">Passcode</label>
+                  <input type="text" id="input-new-member-pass" placeholder="e.g. 5678" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="input-new-member-balance">Starting Credit Balance</label>
+                <div class="amount-input-wrap">
+                  <input type="number" id="input-new-member-balance" min="0" value="50" required>
+                  <span class="amount-suffix">credits</span>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-secondary" id="btn-submit-add-member">
+                  <span>Enroll Member</span>
+                </button>
+              </div>
+              <div class="form-feedback success-msg" id="admin-add-success" style="display: none;"></div>
+              <div class="form-feedback error-msg" id="admin-add-error" style="display: none;"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Member Accounts Table & Balance Setter -->
+        <div class="card admin-members-table-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3 class="card-title">Club Membership Roster &amp; Balances</h3>
+              <p class="card-desc">View real-time balances, today's usage, and adjust credit allocations directly.</p>
+            </div>
+            <div class="roster-header-actions">
+              <span class="badge-role" id="admin-roster-count-badge">120 Members</span>
+              <button class="btn btn-sm btn-outline-danger" id="btn-reset-demo-data" title="Restore sample demo data to clean slate">
+                Reset Demo Ledger
+              </button>
+            </div>
+          </div>
+
+          <div class="table-search-bar">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="input-admin-roster-search" placeholder="Search 120+ members by name, ID (e.g. MEMBER-42), or role...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="admin-roster-table">
+              <thead>
+                <tr>
+                  <th>Member ID</th>
+                  <th>Display Name</th>
+                  <th>Role</th>
+                  <th>Available Balance</th>
+                  <th>Today's Spent</th>
+                  <th>Manage Balance</th>
+                </tr>
+              </thead>
+              <tbody id="admin-roster-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Administrator Security & Passcode Change -->
+        <div class="card admin-security-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3 class="card-title">Administrator Passcode Settings</h3>
+              <p class="card-desc">Update the local demo administrator passcode or configure it via environment variable.</p>
+            </div>
+          </div>
+          <form id="form-admin-change-pass" class="admin-passcode-form">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="input-new-admin-pass">New Admin Passcode</label>
+                <input type="password" id="input-new-admin-pass" placeholder="At least 4 characters" required minlength="4">
+              </div>
+              <div class="form-group form-actions-inline">
+                <button type="submit" class="btn btn-secondary" id="btn-save-admin-pass">
+                  Update Passcode
+                </button>
+              </div>
+            </div>
+            <div class="form-feedback success-msg" id="admin-pass-success" style="display: none;"></div>
+            <div class="form-feedback error-msg" id="admin-pass-error" style="display: none;"></div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for Adjusting Member Balance -->
+  <div class="modal-overlay" id="balance-modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-balance-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-balance-title">Set Member Credit Balance</h3>
+        <button class="modal-close" id="btn-modal-close" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Adjust the fictional credit balance for <strong id="modal-member-name">Alex Rivera</strong> (<span id="modal-member-id">MEMBER-01</span>).</p>
+        <div class="form-group">
+          <label for="input-modal-balance">New Balance (credits)</label>
+          <div class="amount-input-wrap">
+            <input type="number" id="input-modal-balance" min="0" step="1" required>
+            <span class="amount-suffix">credits</span>
+          </div>
+          <span class="input-hint">Cannot be set below 0 credits.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="btn-modal-cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-modal-save-balance">Save Balance</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for 120+ Demo Accounts Directory -->
+  <div class="modal-overlay" id="directory-modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-directory-title">
+    <div class="modal-card modal-directory-card">
+      <div class="modal-header">
+        <div class="modal-header-title-group">
+          <h3 id="modal-directory-title">Demo Member Accounts Directory</h3>
+          <p class="modal-subtitle">120 sample club accounts with local-demo passcodes. Click any account to sign in instantly.</p>
+        </div>
+        <button class="modal-close" id="btn-directory-close" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="directory-search-bar">
+        <div class="search-input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="input-directory-search" placeholder="Search 120 accounts by name, ID (e.g. MEMBER-50), or club role...">
+        </div>
+        <div class="directory-filter-tags" id="directory-filter-tags">
+          <button type="button" class="dir-tag active" data-cat="all">All (120)</button>
+          <button type="button" class="dir-tag" data-cat="lead">Leads &amp; Captains</button>
+          <button type="button" class="dir-tag" data-cat="stem">Robotics &amp; STEM</button>
+          <button type="button" class="dir-tag" data-cat="arts">Arts &amp; Media</button>
+          <button type="button" class="dir-tag" data-cat="highbal">High Balance (&gt;100 cr)</button>
+        </div>
+      </div>
+
+      <div class="directory-accounts-scroll" id="directory-accounts-scroll">
+        <div class="directory-accounts-grid" id="directory-accounts-grid">
+          <!-- Dynamically populated 120 accounts -->
+        </div>
+      </div>
+
+      <div class="modal-footer directory-footer">
+        <span class="directory-footer-meta" id="directory-footer-meta">Showing 120 accounts</span>
+        <button type="button" class="btn btn-secondary" id="btn-directory-random">🎲 Pick Random Account</button>
+        <button type="button" class="btn btn-outline" id="btn-directory-cancel">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <strong>ClubCredits</strong> · School Club Fictional Credit System
+        <div class="footer-sub">Built for educational clubs, workshops, and student group ledgers.</div>
+      </div>
+      <div class="footer-right">
+        <span class="footer-disclaimer">Fictional credits only · No cash value · Zero bank connections</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
